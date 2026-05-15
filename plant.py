@@ -25,8 +25,8 @@ class Plant:
         self.plantGrowthSpeed = random.randint(self.lrg.gS_lower, self.lrg.gS_higher)
         self.plantYield = random.randint(self.lrg.y_lower, self.lrg.y_higher)
         
-        r = clamp(self.lrg.greenBias + random.randint(-30, 30))
-        g = clamp(self.lrg.redBias + random.randint(-30, 30))
+        r = clamp(self.lrg.redBias + random.randint(-30, 30))
+        g = clamp(self.lrg.greenBias + random.randint(-30, 30))
         b = clamp(self.lrg.blueBias + random.randint(-30, 30))
         
         self.color = rgb_to_hex(r, g, b)
