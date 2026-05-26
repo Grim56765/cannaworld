@@ -17,7 +17,7 @@ std::string rgb_to_hex(int r, int g, int b) {
     return ss.str();
 }
 
-class LandraceGene {
+class Genotype {
 public:
     int gS_lower;
     int gS_higher;
@@ -27,7 +27,7 @@ public:
     int hiddenGreenBias;
     int hiddenBlueBias;
 
-    LandraceGene() {
+    Genotype() {
         std::random_device rd;
         std::mt19937 gen(rd());
 
@@ -50,25 +50,25 @@ public:
     }
 };
 
-class Plant {
+class Phenotype {
 public:
-    int plantGrowthSpeed;
-    int plantYield;
+    int phenoGrowthSpeed;
+    int phenoYield;
     std::string color;
     std::string hiddenColor;
     std::string colorExpressed;
     int expressionStrength;
     std::string gender;
 
-    Plant(const LandraceGene& lrg) {
+    Phenotype(const Genotype& geno) {
         std::random_device rd;
         std::mt19937 gen(rd());
 
-        std::uniform_int_distribution<> dist_gs(lrg.gS_lower, lrg.gS_higher);
-        plantGrowthSpeed = dist_gs(gen);
+        std::uniform_int_distribution<> dist_gs(geno.gS_lower, geno.gS_higher);
+        phenoGrowthSpeed = dist_gs(gen);
 
-        std::uniform_int_distribution<> dist_y(lrg.y_lower, lrg.y_higher);
-        plantYield = dist_y(gen);
+        std::uniform_int_distribution<> dist_y(geno.y_lower, geno.y_higher);
+        phenoYield = dist_y(gen);
 
         // === Color logic (matches your Python version) ===
         int baseR = 50;
@@ -78,9 +78,9 @@ public:
         std::uniform_int_distribution<> dist_var(-25, 25);
         int variation = dist_var(gen);
 
-        int r = clamp(lrg.hiddenRedBias + variation);
-        int g = clamp(lrg.hiddenGreenBias + variation);
-        int b = clamp(lrg.hiddenBlueBias + variation);
+        int r = clamp(geno.hiddenRedBias + variation);
+        int g = clamp(geno.hiddenGreenBias + variation);
+        int b = clamp(geno.hiddenBlueBias + variation);
 
         color = rgb_to_hex(baseR, baseG, baseB);           // Visible base color
         hiddenColor = rgb_to_hex(r, g, b);                 // Hidden genetic color
@@ -105,20 +105,20 @@ public:
 };
 
 int main() {
-    LandraceGene clemmonsLrg;
+    Genotype clemmonsGeno;
 
     std::cout << "=== Clemmons Genetic Line ===\n\n";
 
     for (int i = 0; i < 5; i++) {
-        Plant plant(clemmonsLrg);
+        Phenotype pheno(clemmonsGeno);
 
         std::cout << "Plant " << (i + 1) << "\n";
-        std::cout << plant.plantGrowthSpeed << " Weeks\n";
-        std::cout << plant.plantYield << " Ounces\n";
-        std::cout << "Color: " << plant.color << "\n";
-        std::cout << "Hidden Color: " << plant.hiddenColor << "\n";
-        std::cout << plant.colorExpressed << "\n";
-        std::cout << plant.gender << "\n\n";
+        std::cout << pheno.phenoGrowthSpeed << " Weeks\n";
+        std::cout << pheno.phenoYield << " Ounces\n";
+        std::cout << "Color: " << pheno.color << "\n";
+        std::cout << "Hidden Color: " << pheno.hiddenColor << "\n";
+        std::cout << pheno.colorExpressed << "\n";
+        std::cout << pheno.gender << "\n\n";
     }
 
     return 0;
