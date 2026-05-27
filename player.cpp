@@ -1,11 +1,24 @@
 #include "plant.cpp"
+#include <vector>
 
-int plant() {
+/*int characterCreator()
+{
+    std::cout << "Welcome to Cannaworld!" << 
+}
+
+struct Character
+{
+
+}*/
+
+int info() 
+{
     Genotype clemmonsGeno;
 
     std::cout << "=== Clemmons Genetic Line ===\n\n";
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++) 
+    {
         Phenotype pheno(clemmonsGeno);
 
         std::cout << "Plant " << (i + 1) << "\n";
