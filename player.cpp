@@ -29,4 +29,6 @@ int info()
         std::cout << pheno.colorExpressed << "\n";
         std::cout << pheno.gender << "\n\n";
     }
+    
+    return 0;
 }
